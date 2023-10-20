@@ -2,73 +2,82 @@
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
 // import { Route, Routes } from "react-router-dom";
-import { useEffect, useState } from "react";
+
+import { Outlet, Route, Routes } from "react-router-dom";
 import "./App.css";
+import { HomePage } from "./assets/views/HomePage";
+import { NavBar } from "./nav/NavBar";
+import { ShippingShipList } from "./vessels/ShippingShipsList";
+import { HaulersList } from "./vessels/Haulers";
+import { DocksList } from "./vessels/Docks";
 // import { getShippingShips } from "./fetches/shippingShipsFetch";
 
 export const App = () => {
-  const [ships, setShips] = useState([]);
-  const [haulers, setHaulers] = useState([]);
-  const [docks, setDocks] = useState([]);
-
-  useEffect(() => {
-    getShippingShips().then((shipArray) => {
-      setShips(shipArray);
-    });
-  }, []);
-  useEffect(() => {
-    getHaulers().then((haulerArray) => setHaulers(haulerArray));
-  }, []);
-
-  useEffect(() => {
-    getDocks().then((dockArray) => setDocks(dockArray));
-  }, []);
-
-  const getShippingShips = () => {
-    return fetch(`http://localhost:8000/ships`).then((response) =>
-      response.json()
-    );
-  };
-  const getHaulers = () => {
-    return fetch(` http://localhost:8000/haulers`).then((response) =>
-      response.json()
-    );
-  };
-  const getDocks = () => {
-    return fetch(` http://localhost:8000/docks`).then((response) =>
-      response.json()
-    );
-  };
-
   return (
-    <div>
-      <h2>Ships</h2>
-      {ships.map((ship) => {
-        return (
-          <div key={ship.id}>
-            <div>name: {ship.name}</div>
-          </div>
-        );
-      })}
-      <h2>Haulers</h2>
-      {haulers.map((hauler) => {
-        return (
-          <div key={hauler.id}>
-            <div>name: {hauler.name}</div>
-          </div>
-        );
-      })}
-      <h2>Docks</h2>
-      {docks.map((dock) => {
-        return (
-          <div key={dock.id}>
-            <div>location: {dock.location}</div>
-          </div>
-        );
-      })}
-    </div>
+    <>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <NavBar />
+              <Outlet />
+            </>
+          }
+        >
+          <Route index element={<HomePage />} />
+          <Route path="/shippingships" element={<ShippingShipList />} />
+          <Route path="/haulers" element={<HaulersList />} />
+          <Route path="/docks" element={<DocksList />} />
+        </Route>
+      </Routes>
+    </>
   );
 };
+
+//   const [haulers, setHaulers] = useState([]);
+//   const [docks, setDocks] = useState([]);
+
+//   useEffect(() => {
+//     getHaulers().then((haulerArray) => setHaulers(haulerArray));
+//   }, []);
+
+//   useEffect(() => {
+//     getDocks().then((dockArray) => setDocks(dockArray));
+//   }, []);
+
+//   const getHaulers = () => {
+//     return fetch(` http://localhost:8000/haulers`).then((response) =>
+//       response.json()
+//     );
+//   };
+//   const getDocks = () => {
+//     return fetch(` http://localhost:8000/docks`).then((response) =>
+//       response.json()
+//     );
+//   };
+
+//   return (
+//     <div>
+//       <h2>Haulers</h2>
+//       {haulers.map((hauler) => {
+//         return (
+//           <div key={hauler.id}>
+//             <div>name: {hauler.name}</div>
+//           </div>
+//         );
+//       })}
+//       <h2>Docks</h2>
+//       {docks.map((dock) => {
+//         return (
+//           <div key={dock.id}>
+//             <div>location: {dock.location}</div>
+//           </div>
+//         );
+//       })}
+//     </div>
+//   );
+// };
 
 //   const [count, setCount] = useState(0)
 
