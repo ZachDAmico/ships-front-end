@@ -10,6 +10,7 @@ import { NavBar } from "./nav/NavBar";
 import { ShippingShipList } from "./vessels/ShippingShipsList";
 import { HaulersList } from "./vessels/Haulers";
 import { DocksList } from "./vessels/Docks";
+import { EditHaulerForm } from "./form/EditHaulerForm";
 // import { getShippingShips } from "./fetches/shippingShipsFetch";
 
 export const App = () => {
@@ -28,6 +29,7 @@ export const App = () => {
           <Route index element={<HomePage />} />
           <Route path="/shippingships" element={<ShippingShipList />} />
           <Route path="/haulers" element={<HaulersList />} />
+          <Route path="edit-hauler/:id" element={<EditHaulerForm />}></Route>
           <Route path="/docks" element={<DocksList />} />
         </Route>
       </Routes>
